@@ -83,13 +83,16 @@ Type = int(
     input("What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors. \n"))
 com = random.randint(0, 2)
 command = [rock, paper, scissors]
-print(command[Type])
-print("Computer chose:")
-print(command[com])
-if Type == com:
-    print("draw")
-elif Type-com == 1 or Type-com == -2:
-    print("win")
+if Type > 2:
+    print("You type an invalid number, you lose!")
 else:
-    print("lose")
+    print(command[Type])
+    print("Computer chose:")
+    print(command[com])
+    if Type == com:
+        print("draw")
+    elif Type-com == 1 or Type-com == -2:
+        print("win")
+    else:
+        print("lose")
 # simple game
