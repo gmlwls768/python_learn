@@ -8,6 +8,7 @@ logo = hangman_art.logo
 # or from hangman_art import logo, stages
 selected_word = random.choice(word_list)
 os.system('clear')
+# clear display
 
 print_screen = []
 selected_screen = []
