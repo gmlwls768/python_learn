@@ -105,7 +105,7 @@ while loop_bool:
         loop_bool = False
 
 number = 0
-
+winner = ""
 for num in auction:
     if auction[num] > number:
         number = auction[num]
