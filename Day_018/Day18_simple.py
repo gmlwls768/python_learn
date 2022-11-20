@@ -102,7 +102,7 @@ walk_turtle()
 tim.home()
 circle(5)
 tim.home()
-
+art()
 # hello_color_world = []
 # colors = colorgram.extract(
 #     "../image.webp", 30)
