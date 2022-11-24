@@ -32,11 +32,14 @@ while game_on:
         scoreboard.eat()
         snake.extend()
     if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
-        game_on = False
-        scoreboard.over()
-
+        # game_on = False
+        # scoreboard.over()
+        scoreboard.reset()
+        snake.reset()
     for seg in snake.snakebody[1:]:  # slicing
         if snake.head.distance(seg) < 10:
-            game_on = False
-            scoreboard.over()
+            # game_on = False
+            # scoreboard.over()
+            snake.reset()
+            scoreboard.reset()
 screen.exitonclick()
