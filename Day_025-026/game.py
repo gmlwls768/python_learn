@@ -16,10 +16,12 @@ answer_state = screen.textinput(
 while len(guessed_state) <= TOTAL_COUNT:
 
     if answer_state == "Exit":
-        save_list = []
-        for list in data_read_States:
-            if list not in guessed_state:
-                save_list.append(list)
+        save_list = [
+            list for list in data_read_States if list not in guessed_state]
+        # Day_026 updated
+        # for list in data_read_States:
+        #     if list not in guessed_state:
+        #         save_list.append(list)
 
         dict_save = {
             "States": save_list
