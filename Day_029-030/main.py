@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 
@@ -37,18 +38,62 @@ def save():
     web = website_entry.get()
     email = Email_entry.get()
     PW = PW_entry.get()
+
+    json_dict = {
+        web: {
+            "email": email,
+            "password": PW,
+        }
+    }
+
     if web == "" or PW == "":
-        messagebox.showerror(
+        messagebox.showinfo(
             title="Oops", message="Please don't leave any fields empty!")
     else:
         is_okay = messagebox.askokcancel(
             title=web, message=f"These are the details entered: \nEmail: {email}"f"\nPassword: {PW} \n Is it okay to save?")
         if is_okay:
-            f = open("Day_029/data/data.txt", "a")
-            f.write(web + " | " + email + " | " + PW + "\n")
-            f.close()
-            website_entry.delete(0, 'end')
-            PW_entry.delete(0, 'end')
+            # f = open("Day_029-030/data/data.txt", "a") # It can repleace with open("Day_029-030/data/data.txt", "a") as f
+            # f.write(web + " | " + email + " | " + PW + "\n")
+            try:
+                # How to read json file This type is Dict
+                f = open("Day_029-030/data/data.json", "r")
+                data = json.load(f)
+            except FileNotFoundError:
+                f = open("Day_029-030/data/data.json", "w")
+                json.dump(json_dict, f, indent=4)  # How to create json file
+            else:
+                # How to update json file #1 reading old data #2 updating old data with new data #3 saving updated data
+                data.update(json_dict)
+                f = open("Day_029-030/data/data.json", "w")
+                json.dump(data, f, indent=4)  # How to create json file
+            finally:
+                f.close()
+                website_entry.delete(0, 'end')
+                PW_entry.delete(0, 'end')
+
+# ---------------------------- Search website ------------------------------- #
+
+
+def search_web():
+    try:
+        f = open("Day_029-030/data/data.json", "r")
+        data = json.load(f)
+    except FileNotFoundError:
+        messagebox.showinfo("Error", message="No Data File Found.")
+    else:
+        web = website_entry.get()
+        if web in data:
+            email_dic = data[web]["email"]
+            password_dic = data[web]["password"]
+            messagebox.showinfo(
+                web, f"Email: {email_dic} \n Password: {password_dic}")
+        else:
+            messagebox.showinfo(
+                "Error", message=f"No details for {web} exists.")
+
+    finally:
+        f.close()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -59,7 +104,7 @@ window.config(padx=50, pady=50)
 canvas = Canvas(width=200, height=200)
 
 # img
-logo_img = PhotoImage(file="Day_029/logo.png")
+logo_img = PhotoImage(file="Day_029-030/logo.png")
 canvas.create_image(100, 100, image=logo_img)
 canvas.grid(column=1, row=0)
 
@@ -72,8 +117,8 @@ PW_label = Label(text="Password:")
 PW_label.grid(column=0, row=3)
 
 # entry
-website_entry = Entry(width=35)
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry = Entry(width=21)
+website_entry.grid(column=1, row=1)
 website_entry.focus()
 Email_entry = Entry(width=35)
 Email_entry.insert(0, "@gmail.com")
@@ -86,6 +131,7 @@ PW_button = Button(text="Generate Password", command=generate_password)
 PW_button.grid(column=2, row=3)
 ADD_button = Button(text="ADD", width=36, command=save)
 ADD_button.grid(column=1, row=4, columnspan=2)
-
+search_button = Button(text="Search", command=search_web, width=13)
+search_button.grid(column=2, row=1)
 
 window.mainloop()
