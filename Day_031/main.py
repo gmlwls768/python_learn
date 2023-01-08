@@ -12,8 +12,7 @@ try:
     csv_read = read_csv("Day_031/data/words_to_learn.csv")
 except FileNotFoundError:
     csv_read = read_csv("Day_031/data/eng_kor.csv")
-    buffer = csv_read
-    buffer.to_csv("Day_031/data/words_to_learn.csv", index=False)
+    csv_read.to_csv("Day_031/data/words_to_learn.csv", index=False)
     eng_dict = csv_read.to_dict("records")
 else:
     eng_dict = csv_read.to_dict("records")
