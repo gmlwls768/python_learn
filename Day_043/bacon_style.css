@@ -1,0 +1,33 @@
+/*tag selecter*/
+h1{ 
+    color:red;
+} 
+/*class selecter*/
+.hotdog{
+    width: 20%;
+}
+.bacon{
+    width: 50%;
+}
+/*id selecter*/
+#p_one{
+    color: aqua;
+}
+.pp{
+    text-align: center;
+}
+.two{
+    color: violet;
+}
+.three{
+    color: green;
+}
+.circular{
+    border-radius: 30%;
+}
+/* id only use one place */
+/* id can't have 2+ elem */
+h1:hover{
+    color: black;
+    transition: all 1s;
+}
