@@ -66,7 +66,5 @@ class InternerSpeedTwitterBot():
         post = self.driver.find_element(
             By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div[3]').click()
 
-        sleep(1000)
-
 
 InternerSpeedTwitterBot()
